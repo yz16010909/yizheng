@@ -1,0 +1,40 @@
+课堂笔记2
+题目:git操作实战
+1.安装
+(1)下载
+
+(2)安装
+
+(3)察看版本号
+	>git --version
+
+2.建立本地仓库
+(1)创建目录
+	mkdir /f/mygit/gitbg
+(2)初始化
+	>git init
+(3)创建文件	
+
+(4)配置管理者(加油箱和明子)
+>git config --global user.email "1357976506@qq.com"
+>git config --global user.name "yizheng"
+(5)添加文件到本地
+>git add 文件名
+>git commit -m "说明的内容(版本号)"
+(6)察看提交情况 
+>git status
+>git log
+3.建立github仓库
+(1)创建并添加密钥
+本地创建远程添加
+>ssh-keygen
+将.ssh复制当前仓库文件夹中
+远程添加到SSH(id_rsa.pub文件的内容)
+(2)建立远程连接
+>git remote add origin git@github.com:yz16010909/mytest.git
+(3)将本地内容上传到远程仓库中
+>git remote show origin
+(4)将本地内容上传到远程仓库中
+>git push origin master
+
+
