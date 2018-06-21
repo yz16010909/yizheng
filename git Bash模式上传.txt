@@ -1,0 +1,71 @@
+第一步:先下载就不管了
+第二步:打开GIT Bash窗口
+	1.先载入自己的用户名和邮箱
+
+		$ git config --global user.name "yz"
+		$ git config --global user.email "1357976506@qq.com"
+
+	2.设置ssh ket,
+	首先检查是否已生成密钥cd ~/.ssh，如果返回的ls有3个文件,则密钥已经生成。
+
+		$ cd ~/.ssh
+		$ ls
+	
+	如果有"id_rsa id_rsa.pub"则有密钥生成
+	如果没有,就打
+
+		$ ssh-keygen -t rsa -C "1357976506@qq.com"	//自己的邮箱
+	
+	然后去默认路径里找文件,在将文件放进网页里的设置里找"id_rsa.pub"用记事本或文本编辑器打开复制里面的全部内容。
+ 		C:\Users\lenovo\.ssh	//一般默认路径
+	
+	3.进入自己的github 在个人头像的下拉菜单里点"Settings",
+	然后在进入的页面的左边栏里点击"SSH and GPG Keys"
+	然后右上角 “New SSH key”
+	出现的表单里，标题可自定义，内容就是"id_rsa.pub"里面复制过来的内容
+
+第三步:上传文件
+	1.创建本地项目
+		建立text文件夹(空文件夹将自动过滤无法上传)
+	2.建立本地仓库
+		1)首先进入text文件夹
+			
+			如"$ cd d:text"
+		2)初始化init,初始化成功后你会发现项目里多了一个隐藏文件夹.git
+		
+			$ git init	
+	3.添加文件
+		
+			$git add . 	//表示文件夹内的所有文件
+
+	4.执行命令
+
+			$git commit -m "提交"	//事实上这只是一个编号
+
+第四步:关联github仓库
+	1.去官网找到创建的项目(仓库)?
+	因为是空文档,所以里面有操作步骤,
+		如:
+			echo "# tu" >> README.md
+			git init
+			git add README.md
+			git commit -m "first commit"
+			git remote add origin https://github.com/yz16010909/tu.git
+			git push -u origin master
+	2.执行命令,事实上就是关联这个空文档.
+
+		$git remote add origin https://github.com/hanyuntao/text.git
+	3.上传当前的文件
+	
+		$git pull --rebase origin master	//pull上传  master当前
+	4.git push -u origin master
+
+第五步:删除或修改
+	1.删除需要使用 git rm
+	2.更改需要先通过
+
+		$git commit -a -m "your update message"
+		更新本地，然后再上传
+		$git push originhttps master
+
+	
