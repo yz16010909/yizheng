@@ -1,0 +1,44 @@
+一.下载安装不用提了
+
+   1.安装完成后，还需要最后一步设置，在命令行输入
+	$ git config --global user.name "Your Name"
+	$ git config --global user.email "email@example.com"
+		//自报家门，也就是给自己的公文包？记录器？取个名字！
+
+二。使用
+	1。首先，创建一个版本库非常简单，首先，选择一个合适的地方，创建一个空目录：
+		$ mkdir learngit 
+				//创建个空文件夹
+		$ cd learngit
+				//进入那个文件夹
+		$ pwd		//pwd命令用于显示当前目录。所以用dir代替也行！
+
+	第二步，通过git init命令把这个目录变成Git可以管理的仓库：
+		$ git init	
+				//就算是直接任命这个文件夹为可还原的根目录了。
+		
+	2。首先先有个文件，比如建个txt的文件，如readme.txt 注：doc文件不行
+	第一步，用命令git add告诉Git，把文件添加到仓库：
+		$ git add readme.txt
+
+	第二步，用命令git commit告诉Git，把文件提交到仓库：
+		$ git commit -m "wrote a readme file"
+				//就是给这txt备注个标签
+	
+	第三步，就是重复添加文件和备注了
+		$ git add file1.txt
+				//add 添加文件
+		$ git add file2.txt file3.txt
+				//add 添加文件
+		$ git commit -m "add 3 files."
+				//备注完成
+
+三。版本回退
+	1。首先在readme.txt中修改里面的内容
+	
+	第二步，然后尝试提交：
+		$ git add readme.txt
+		$ git commit -m "append GPL"
+				//再次添加，备注，提交，完成
+	
+
