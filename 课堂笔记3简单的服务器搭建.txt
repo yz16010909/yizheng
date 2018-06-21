@@ -1,0 +1,69 @@
+﻿犀利开发 书
+精通javascript
+
+
+//node的搭建web服务器
+var http = require('http');
+http.createServer(function(req,res) {
+    res.writeHead(200, { 'Content-Type': 'text/plain;charset=utf-8' });
+    res.write("来自node的问候，下午好！");
+    res.end();
+}).listen(8080, '10.43.10.153');
+
+//利用gulp 搭建web服务器
+1.条件
+(1)node.js //web开发平台
+(2)git	
+(3)bowor	//包管理,模块管理
+(4)gulp  
+(5)gulp-webserver
+
+	npm init //初始化
+	npm --savedev <name>
+2.编写gulpfile.js配置文件
+var gulp=require('gulp');
+var webserver=require('gulp-webserver');
+
+gulp.task('webserver',function(){
+	gulp.src('./')
+		.pipe(webserver({
+			port:8080,
+			host:'localhost',
+			livereload:true,
+			directoryListing:true,
+			open:true
+		}))
+})
+		
+3.运用web服务器
+>gulp webserver
+
+课堂拓展
+yeoman
+>npm install --save-dev yo-cli
+>npm search yeoman
+>npm i --seav-dev yeoman-generator
+>npm i -g yo
+
+	yo
+		y //是否执行?
+		[回车]
+		webapp  //起个名,一个生成器插件
+		[回车]
+		[回车]
+		y
+
+	1.>npm i -g yo
+	2.>npm i -g generator-webapp
+	>yo
+
+gulp-jshint
+
+C:\Windows\System32\drivers\etc
+
+Alias /php/ "f:/php/"
+<Directory "f:/php">
+    AllowOverride All
+    Options None
+    Require all granted
+</Directory>
