@@ -1,0 +1,84 @@
+﻿一。web项目开发软件的选取
+1。node.js
+2。git
+3。bower
+4。gulp
+5。yeoman
+6.pump
+	gulp-jshint
+二。软件的安装和使用
+1。node.js
+	node -v
+	3*8-Math.sqrt(2)
+	Math.pow()
+	console.log("")
+
+2。npm
+	npm -v
+	1)>npm install -global <mod name>
+		npm i -g jquery
+	2)>npm install --save-dev <mod name>
+		npm i --save-dev jquery
+	3)>npm i --sece-dev jquery@1.11.1
+	4)>npm list -g
+		npm list 
+
+	path
+	set path=f:\myweb;%path%
+
+	5)>npm update <module name>
+	6)>npm uninstall <mod name>
+	7)>批量安装
+	 >npm init
+2。git
+
+
+3。bower
+>npm install -g bower
+>bower -v
+>bower help
+>bower install jquery#3.3.1
+>bower search html5-boilerplate
+>bower install html5-boilerplate
+npm install html5-boilerplate
+CLI
+
+>bower updata <mod name>
+>bower uninstall jquery
+>批量安装
+>bower init
+
+4。Gulp/grunt/webpack
+>npm i -g gulp
+>gulp -v(version)
+>gulpfile.js
+	var gulp=require('gulp'),
+		concat=require('concat');
+	gulp.task("test",function(){
+		gulp.src('src/js/*.js')
+			.pipe(concat('qiming.js'))
+			pipe(gulp.dest('dist/js'))
+	})
+>gulp test
+
+	babel-core //解决最新js的降级
+	gulp //css js 的压缩处理
+	gulp-autoprefixer //自动加前缀
+	gulp-jshint //发现错误的
+	gulp-rename  //改名的
+	gulp-replace //替换
+	modernizr    //兼容性处理
+	normalize.css //初始化样式
+
+5。yeoman（yo）
+>npm install -global yo
+>yo --version
+>yo --help
+>配置生成器
+>yo
+	[回车]
+	web
+	[回车]
+	>yo webapp
+
+	less-sass-css-POSTcss
