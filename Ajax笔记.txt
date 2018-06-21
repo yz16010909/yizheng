@@ -1,0 +1,31 @@
+一、Ajax代码编写
+1。创建对象
+var xhr=new XMLHttpRequest()
+
+
+2。连接服务器（准备发送数据）
+xhr.open('get|post',url,true|false)
+
+3。过程监控
+xhr.onreadystatechange=function(){
+	if(this.readyState==4 && this.status==200){
+		...
+	}else{
+		...
+	}
+}
+
+(2)获取数据方法：xhr.responseText
+				xhr.responseXML
+
+xhr2
+		JSON
+		var a={'firstname':'wang','lastname':'frank'}
+		JSON.stringify() //转换成字符串
+		JSON.parse()	//反转成数组值
+
+4。发送数据
+xhr.send()
+
+二、Ajax代码应用案例
+题目：获取长春地区天气情况。
