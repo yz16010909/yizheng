@@ -1,0 +1,276 @@
+函数：用于将功能打包整合进一个语句里,方便随时调用.
+一、定义函数
+	function abs(x){
+		if(x>=0){
+			return x;
+		}else{
+			return -x;
+		}
+	}
+
+这是一个简单的判断正负值的函数
+	上述abs()函数的定义如下：
+
+		function指出这是一个函数定义；（类似var）
+		abs是函数的名称；（任意命名，遵循变量的命名规则）
+		(x)括号内列出函数的参数，多个参数以,分隔；（括号里的是形参，与大括号里对应的是实参）
+		{ ... }之间的代码是函数体，可以包含若干语句，甚至可以没有任何语句。（这里面就写执行的语句）
+		
+		请注意，函数体内部的语句在执行时，一旦执行到return时，函数就执行完毕，并将结果返回。因此，函数内部通过条件判断和循环可以实现非常复杂的逻辑。
+		如果没有return语句，函数执行完毕后也会返回结果，只是结果为undefined。
+
+	上述的函数也可以这样写：
+		
+		var abs=function (x){
+			if(x>=0){
+				return x;
+			}else{
+				return -x;
+			}
+		}
+
+二、调用函数
+	abs(100); //100
+	abs(-5);  //5
+	可多次使用，这也是函数的好处。
+
+	虽说传入多个参数也不影响其使用，
+	如：abs(10,'sdgfsd');  //10
+	    abs(-6.'safda');  //6
+	空值
+	    abs();	//NaN
+	此时abs(x)函数的参数x将收到undefined，计算结果为NaN。
+
+	要避免收到undefined，可以对参数进行检查：
+
+		function abs(x){
+			if(typeof x!=='number'){
+				throw 'Not a number';
+			}
+			//先判断是否是数字，如果不是数字，将在控制台提示
+			//是提示，不是输出！所以与console.log()不同
+			//之后就是再判断正负了。
+			if(x>=0){
+				return x;
+			}else{
+				return -x;
+			}
+		}
+
+三、arguments
+	说白了，加上 .length 就是计算参数的个数的！用arguments.length
+	而本身则是类似数组一样，将参数收集起来。如arguments[i]
+	注意！是类似，不是就是。所以arguments并不是数组
+JavaScript还有一个免费赠送的关键字arguments，它只在函数内部起作用，并且永远指向当前函数的调用者传入的所有参数。arguments类似Array但它不是一个Array：
+
+		function foo(x){
+			console.log('x='+x); //10
+			for(var i=0;i<arguments.length;i++){
+				console.log('arg'+i+'='+arguments[i]);
+			}
+		}
+		foo(10,20,30);
+
+		运行结果：
+			x = 10
+			arg 0 = 10
+			arg 1 = 20
+			arg 2 = 30
+			
+
+利用arguments，你可以获得调用者传入的所有参数。也就是说，即使函数不定义任何参数，还是可以拿到参数的值：
+1.以下是基本没有参数，也不会提示NaN
+
+		 function abs(){
+			if(arguments.length===0){
+				return 0;
+			}
+			//如果abs()里面没有参数的话，就返回0；
+			var x=arguments[0];
+			return x>=0?x:-x;
+			//三目运算符，判断x是非大于等于0，如果条件成立就返回冒号左边的，反之右边的。
+		}
+
+实际上arguments最常用于判断传入参数的个数。你可能会看到这样的写法：
+1。这是利用arguments来设置可选参数
+
+	foo(a[,b],c)
+	接收2~3个参数，b是可选参数，如果只传2个参数，b默认为null；
+
+		function foo(a,b,c){
+			if(arguments.length === 2){	//这是判断参数的个数，如果只要两个，就执行下面
+				c=b;	//把b赋予c
+				b=null; //把b赋予默认null
+			}
+			//就是将第二个参数往后移，并将第二个参数设为默认
+		}
+
+四、rest参数
+	arguments的进化版？
+由于JavaScript函数允许接收任意个参数，于是我们就不得不用arguments来获取所有参数：
+
+		function foo(a,b){
+			var i,rest=[];
+			if(arguments.length>2){
+				for(i=2;i<arguments.length;i++){
+					rest.push(arguments[i]);
+				}
+			}
+			console.log('a='+a);
+			console.log('b='+b);
+			console.log('rest');
+		}
+
+		//思路是：先定义一个变量和一个数组
+			//然后判断形参是否超过两个
+			//如果超过就执行for循环
+			//将多出的形参都扔进之前定义的rest[]数组里
+			//.push() 这个函数是往数组尾部添加数组的函数。
+
+为了获取除了已定义参数a、b之外的参数，我们不得不用arguments，并且循环要从索引2开始以便排除前两个参数，这种写法很别扭，只是为了获得额外的rest参数，有没有更好的方法？
+
+ES6标准引入了rest参数，上面的函数可以改写为：
+
+1。这是es6中新引进的rest参数
+
+		function foo(a,b,...rest){
+			console.log('a='+a);
+			console.log('b='+b);
+			console.log(rest);
+		}
+		foo(1,2,3,4,5);
+		//结果：
+			a=1
+			b=2
+			Array[3,4,5]
+
+		foo(1);
+		//结果：
+			a=1
+			b=undefined
+			Array[]
+
+	使用...rest制作sum()函数
+		'use strict';
+		function sum(...rest){
+			var sum=0;
+			if(rest.length==0){
+				return sum;
+			}else{
+				for(i=0;i<rest.length;i++){
+					sum=sum+rest[i];
+			}
+				return sum;
+			}
+		}
+
+		//测试
+		var i,args=[];
+		for(i=1;i<=100;i++){
+			args.push(i);
+		}
+		if(sum()!==0){
+			console.log('测试失败：sum()='+sum());
+		}else if(sum(1) !==1){
+			console.log('测试失败：sum(1)='+sum(1));
+		}else if(sum(2,3)!==5){
+			console.log('测试失败：sum(2,3)='+sum(2,3));
+		}else if(sum.apply(null,args)!==5050){
+			console.log('测试失败:sum(1,2,3,...,100)='+sum.apply(null,args));
+		}else{
+			console.log('测试通过！');
+		}
+
+		//.apple(null,args) 大致是将sum()函数里的数变成列表相加?
+
+	1.var max=Math.max.apply(null,array),这样轻易的可以得到一个数组中最大的一项 
+	2.var min=Math.min.apply(null,array); 可以轻易得到一个数组中最小的一项
+
+	Person.apply(this,arguments); 
+	Person.call(this,name,age); 
+
+		<script type="text/javascript">  
+		/*定义一个人类*/ 
+		function Person(name,age) {  
+		this.name=name; this.age=age;  
+		}  
+		/*定义一个学生类*/ 
+		functionStudent(name,age,grade) {  
+		  Person.apply(this,arguments); this.grade=grade;  
+		}  
+		//创建一个学生类  
+		var student=new Student("qian",21,"一年级");  
+		//测试  
+		alert("name:"+student.name+"\n"+"age:"+student.age+"\n"+"grade:"+student.grade);  
+		//大家可以看到测试结果name:qian age:21 grade:一年级  
+		//学生类里面我没有给name和age属性赋值啊,为什么又存在这两个属性的值呢,这个就是apply的神奇之处.  
+		</script>
+
+五、小心return语句
+	因为return 后面会自动添加分号，所以当后面没有东西时，将自动结束。
+	
+	例如：
+	function foo() {
+   		 return { name: 'foo' };
+	}
+
+	foo(); // { name: 'foo' }
+
+	1。将return 后面的另起一行后，就会出现以下效果。
+	function foo() {
+   		 return
+        		{ name: 'foo' };
+	}
+
+	foo(); // undefined
+	2。因为return有自动结束的语义，所以当后面没有东西的话，就会造成未定义现象。即便另起一行，也不会再执行了。
+	所以，上面的就变成了这样：
+
+		function foo() {
+    			return; // 自动添加了分号，相当于return undefined;
+     			   { name: 'foo' }; // 这行语句已经没法执行到了
+		}
+
+	如果想多写，可以这样：
+	
+		function foo() {
+    			return { // 这里不会自动加分号，因为{表示语句尚未结束
+      			  name: 'foo'
+   		 };
+		}
+
+
+练习
+
+1。定义一个计算圆面积的函数area_of_circle()，它有两个参数：
+
+r: 表示圆的半径；
+pi: 表示π的值，如果不传，则默认3.14
+
+	function area_of_circle(r, pi) {
+   		if (pi){
+      		  return r*r*pi;
+   		 }else{
+      		  return r*r*3.14;
+   		 }
+	}
+
+
+2。小明是一个JavaScript新手，他写了一个max()函数，返回两个数中较大的那个：
+
+'use strict';
+
+function max(a, b) {
+
+    if (a > b) {
+        return
+                a;
+    } else {
+        return
+                b;
+    }
+
+}
+console.log(max(15, 20));
+
+错误分析：因为return有结束语义的含义，所以需要a b变量要与return同行；
